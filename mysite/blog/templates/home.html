@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}
+Главная страница
+{% endblock %}
+{% block restarting %}<button class="restart-btn" id="restart-btn" onclick="restart(event)"><img class="restart_img" src=" static\imges\Renew.svg" alt=""></button>{% endblock %}
+{% block content %}
+
+<div class="content_info">
+    <div class="block_content">
+    
+    </div>
+    <div class="input_serch">
+        <input type="text" class="search" id="search" placeholder="Search">
+        <button class="btn_search"><img class="img_search" src="static\imges\icon _Search.svg" alt=""></button>
+    </div>
+</div>
+{% endblock %}
