@@ -4,29 +4,34 @@
     padding: 0;
 }
 
-body,
-html {
-    height: 100%;
+html, body {
+    width: 100%;
+    min-height: 100%;
     font-family: Arial, sans-serif;
-    overflow: hidden;
+    overflow-x: hidden; /* Избегаем горизонтального скролла */
 }
 
+:root {
+    --vh: 1vh;
+}
+
+/* Контейнер страницы */
 .container {
     position: relative;
     width: 100%;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    min-height: calc(100 * var(--vh)); /* Высота учитывает проблемы с 100vh */
+    overflow: hidden; /* Ограничиваем содержимое */
 }
 
 /* Абстрактный динамичный фон */
 .background {
-    position: absolute;
+    position: fixed; /* Делаем фон фиксированным */
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     background: radial-gradient(circle, rgba(0, 0, 0, 0.6), #000000);
-    overflow: hidden;
+    z-index: -1; /* Уводим на задний план */
 }
 
 /* Движущиеся элементы */
@@ -35,7 +40,7 @@ html {
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.1);
     opacity: 0.8;
-    animation: move 15s infinite ease-in-out;
+    animation: move 5s infinite ease-in-out;
 }
 
 .blob1 {
@@ -43,7 +48,7 @@ html {
     height: 600px;
     top: 20%;
     left: 10%;
-    animation-duration: 12s;
+    animation-duration: 6s;
     animation-delay: -2s;
 }
 
@@ -52,7 +57,7 @@ html {
     height: 800px;
     top: 60%;
     left: 60%;
-    animation-duration: 18s;
+    animation-duration: 8s;
 }
 
 .blob3 {
@@ -60,7 +65,7 @@ html {
     height: 500px;
     top: 40%;
     left: 30%;
-    animation-duration: 20s;
+    animation-duration: 10s;
     animation-delay: -4s;
 }
 
@@ -68,35 +73,35 @@ html {
     0% {
         transform: translateY(0) translateX(0) scale(1);
     }
-
     50% {
         transform: translateY(-30px) translateX(30px) scale(1.1);
     }
-
     100% {
         transform: translateY(0) translateX(0) scale(1);
     }
 }
 
-.container {
-    display: flex;
-}
-
+/* Фиксированная боковая панель */
 .sidebar {
-    width: 250px;
-    height: 100vh;
-    background-color: #333;
     position: fixed;
     top: 0;
-    right: -250px;
-    transition: right 0.3s;
-    padding-top: 20px;
-    float: right;
+    right: -305px;
+    width: 305px;
+    height: 100%;
+    background-color: #333333f5;
+    color: white;
+    transition: right 0.3s ease;
+    overflow-y: auto;
+    z-index: 10; /* Выше фона, но ниже контента */
+}
+
+.sidebar-open {
+    right: 0;
 }
 
 .close-btn-container {
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     padding: 10px;
 }
 
@@ -105,10 +110,8 @@ html {
     color: white;
     cursor: pointer;
 }
-
 .sidebar .close-btn:hover {
     color: #ff0000;
-    /* Цвет при наведении на кнопку закрытия */
 }
 
 .sidebar a {
@@ -123,17 +126,12 @@ html {
     background-color: #575757;
 }
 
-
-.sidebar .close-btn {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 30px;
-    color: white;
-}
-
+/* Основное содержимое */
 .content {
     width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 1; /* Выше фона */
 }
 
 .info_btn {
@@ -144,11 +142,9 @@ html {
     background-color: #ffffff;
     height: 80px;
 }
-
-.logo_link {
-    margin-right: 500px;
+.logo_link{
+    margin-right: 600px;
 }
-
 .open-btn {
     margin-right: 20px;
     font-size: 20px;
@@ -183,29 +179,23 @@ html {
     background-color: #333;
 }
 
-.sidebar-open {
-    left: 0;
-    /* Панель открыта */
-}
-
 .restart_img {
     width: 30px;
     height: 30px;
 }
-
 .content_info {
     display: flex;
     align-items: center;
+    height: 100vh;
+    width: 100%;
     flex-direction: column;
-    /* Центрирование по вертикали */
 }
 
 .block_content {
     width: 900px;
     height: 450px;
-    margin-top: 100px;
+    margin-top: 80px;
     background-color: #ffffff;
-    margin-bottom: 50px;
     border-radius: 30px;
 }
 
@@ -214,6 +204,8 @@ html {
     align-items: center;
     justify-content: space-between;
     width: 900px;
+    max-width: 100%;
+    margin-top: 30px;
 }
 
 .search {
@@ -222,9 +214,9 @@ html {
     background-color: #ffffff;
     color: #333;
     padding-left: 20px;
-    border: none;
     border-radius: 30px;
-    
+    border: none;
+    outline: none;
 }
 
 .btn_search {
@@ -240,10 +232,6 @@ html {
     cursor: pointer;
 }
 
-.img_search {
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.btn_search:hover {
+    background-color: #575757;
 }
