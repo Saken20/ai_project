@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Чат с Llama3.2</title>
+    <!-- Подключение Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Подключение Highlight.js CSS -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    
+    <!-- Ваши стили -->
+    <link rel="stylesheet" type="text/css" href="{% static 'ai_app/css/styles.css' %}">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'ai_app/images/favicon.ico' %}" type="image/x-icon">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <!-- Кнопка для переключения боковой панели -->
+    <button id="sidebar-toggle">☰ Меню</button>
+
+    <div id="chat-container">
+        <!-- Боковая панель -->
+        <div id="sidebar">
+            <header>
+                <h3>История Чатов</h3>
+                <button id="new-session" class="btn btn-primary btn-sm">Новый Чат</button>
+            </header>
+            <ul class="list-group list-group-flush" id="session-list">
+                <!-- Список сессий будет загружен сюда -->
+            </ul>
+        </div>
+        <!-- Основная область чата -->
+        <div id="main-chat">
+            <header>
+                <h1>Чат с Llama3.2</h1>
+                <button id="theme-toggle" class="btn btn-secondary btn-sm">Тёмная тема</button>
+            </header>
+            <div id="chat-box" class="border rounded p-3">
+                <!-- Сообщения чата будут здесь -->
+            </div>
+            <form id="message-form">
+                <input type="text" id="message" class="form-control mr-2" placeholder="Введите сообщение..." autocomplete="off">
+                <button type="button" id="send" class="btn btn-primary">Отправить</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Передача CSRF-токена -->
+    <script>
+        var csrfToken = '{{ csrf_token }}';
+    </script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Highlight.js JS -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <!-- Автоинициализация Highlight.js -->
+    <script>hljs.highlightAll();</script>
+    <!-- Ваш скрипт -->
+    <script src="{% static 'ai_app/js/script.js' %}"></script>
+</body>
+</html>

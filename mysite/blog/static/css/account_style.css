@@ -1,0 +1,155 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: #f0faff;
+  font-family: 'Rubik', sans-serif;
+}
+
+
+.wrapper {
+  position: relative;
+  max-width: 470px;
+  width: 90%;
+  border-radius: 12px;
+  padding: 20px 30px 120px;
+  background: #333;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.form.login {
+  position: absolute;
+  left: 50%;
+  bottom: -86%;
+  transform: translateX(-50%);
+  width: calc(100% + 220px);
+  padding: 20px 140px;
+  border-radius: 50%;
+  height: 100%;
+  background: #fff;
+  transition: all 0.6s ease;
+}
+
+.wrapper.active .form.login {
+  bottom: -15%;
+  border-radius: 35%;
+  box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.1);
+}
+
+header {
+  margin-top: 25px;
+  font-family: 'Rubik', sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+}
+
+.form header {
+  font-size: 30px;
+  text-align: center;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.form.login header {
+  color: #333;
+  opacity: 0.6;
+}
+
+.wrapper.active .form.login header {
+  opacity: 1;
+}
+
+.wrapper.active .signup header {
+  opacity: 0.6;
+}
+
+.wrapper form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 40px;
+}
+
+form input {
+  height: 60px;
+  outline: none;
+  border: none;
+  padding: 0 15px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #333;
+  border-radius: 8px;
+  background: #fff;
+  font-family: 'Rubik', sans-serif;
+}
+
+.form.login input {
+  border: 1px solid #aaa;
+}
+
+.form.login input:focus {
+  box-shadow: 0 1px 0 #ddd;
+}
+
+form a {
+  color: #333;
+  text-decoration: none;
+  font-family: 'Rubik', sans-serif;
+}
+
+form a:hover {
+  text-decoration: underline;
+}
+
+form input[type="submit"] {
+  margin-top: 15px;
+  padding: none;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: 'Rubik', sans-serif;
+}
+
+.form.login input[type="submit"] {
+  background: #333;
+  color: #fff;
+  border: none;
+  transition: background-color 0.3s;
+  font-family: 'Rubik', sans-serif;
+}
+
+.button_signup {
+  transition: background-color 0.3s;
+  font-family: 'Rubik', sans-serif;
+}
+
+.button_signup:hover {
+  background-color: #660dc5;
+  color: #fff;
+}
+.form.login input[type="submit"]:hover {
+  background-color: #660dc5;
+  color: #fff;
+}
+.alert.alert-danger {
+  background-color: #f8d7da; /* Светло-красный фон */
+  color: #721c24;           /* Темно-красный текст */
+  border: 1px solid #f5c6cb;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 5px;
+  font-size: 0.9em;
+}
+
+

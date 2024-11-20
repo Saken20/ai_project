@@ -1,0 +1,119 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  <link rel="icon" href="{% static 'css\imges\Frame 8.svg' %}" type="image/x-icon">
+  <link rel="stylesheet" href="{% static 'css/adaptive.css' %}">
+  <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+  <link rel="shortcut icon" href="{% static 'css\imges\Frame 8.svg' %}" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300..900&display=swap" rel="stylesheet">
+
+  <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+  <div class="background">
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="blob blob3"></div>
+  </div>
+  <div class="container">
+    <div id="sidebar" class="sidebar">
+      <div class="close-btn-container">
+        <span class="close-btn" id="close-btn" onclick="closeSidebar(event)">×</span>
+      </div>
+      <a href="{% url 'blog:home' %}" class="nav-link" aria-current="page">Негізгі бет</a>
+      <a href="{% url 'blog:about' %}" class="nav-link">Біз туралы</a>
+      <a href="{% url 'ai_app:chat' %}" class="nav-link">Llama</a>
+    </div>
+    <div class="content" id="content">
+      <div class="header">
+        <div class="info_btn">
+          <a class="logo_link" href="{% url 'blog:home' %}"><img src="{% static 'css\imges\Frame 7.png' %}" alt=""></a>
+          <div>
+            {% if not user.is_authenticated %}
+            <a class="buttun_login_register" href="{% url 'accounts:accounts' %}">Кіру/тіркелу</a>
+            {% else %}
+            <!-- Кнопка для выпадающего списка -->
+            <div class="dropdown-container">
+              <button class="buttun_login_register" id="dropdownButton">Профиль</button>
+
+              <!-- Выпадающий список -->
+              <div id="dropdownMenu" class="dropdown">
+                <a href="{% url 'accounts:logout' %}">Выйти</a>
+                <a href="{% url 'accounts:profile' %}">Профиль</a>
+              </div>
+            </div>
+            {% endif %}
+            <button class="open-btn" id="open-btn" onclick="toggleSidebar(event)">☰</button>
+            {% block restarting %}{% endblock %}
+          </div>
+        </div>
+      </div>
+      {% block content %}
+
+      {% endblock %}
+    </div>
+  </div>
+
+
+  <footer>
+    <a class="logo_link_footer" href="/mysite/blog/templates/home.html"><img src="/static/css/imges/Frame 7.png"
+        alt=""></a>
+    <div class="contact">
+      <p class="cont_text">
+        Контакты
+      </p>
+      <p class="cont_text_nom">
+        +7(777) 777-77-77
+      </p>
+      <p class="cont_text_nom">
+        +7(777) 777-77-77
+      </p>
+    </div>
+    <div class="social_networks_footer">
+      <a href="https://www.instagram.com/saken_tn_/profilecard/?igsh=M3EzazMxY2x5NHF2" class="icon_instagram"
+        aria-label="Instagram"></a>
+      <a href="#" class="icon_whatsapp" aria-label="WhatsApp"></a>
+      <a href="#" class="icon_telegram" aria-label="Telegram"></a>
+    </div>
+  </footer>
+  <script>
+    // Начальное состояние: скрыть меню при загрузке страницы
+    document.addEventListener('DOMContentLoaded', function () {
+      let dropdownMenu = document.getElementById('dropdownMenu');
+      dropdownMenu.style.display = 'none'; // Убедитесь, что меню скрыто при первой загрузке
+    });
+
+    // Открытие и закрытие выпадающего списка
+    document.getElementById('dropdownButton').onclick = function () {
+      let dropdownMenu = document.getElementById('dropdownMenu');
+      dropdownMenu.style.display = (dropdownMenu.style.display === 'block') ? 'none' : 'block';
+    };
+
+    // Закрытие меню, если клик был вне меню или кнопки
+    window.onclick = function (event) {
+      let dropdownMenu = document.getElementById('dropdownMenu');
+      let dropdownButton = document.getElementById('dropdownButton');
+
+      // Закрыть меню, если клик был вне кнопки и меню
+      if (!dropdownButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
+        dropdownMenu.style.display = 'none';
+      }
+    };
+  </script>
+
+
+
+  <script src="{% static 'JS\script.js' %}"></script>
+</body>
+
+</html>

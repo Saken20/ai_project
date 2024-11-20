@@ -1,0 +1,88 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block title %}
+Профиль
+{% endblock %}
+
+{% block content %}
+<div class="profile_info">
+    <div class="adad">
+        <form class="form_profile" action="{% url 'accounts:profile' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="left_profile">
+                <div>
+                    <!-- Аватар пользователя -->
+                    <div class="imag_profile">
+                        {% if user.image and user.image.url %}
+                            <img id="previewImage" src="{{ user.image.url }}" alt="avatar">
+                        {% else %}
+                            <img id="previewImage" src="{% static 'css/imges/default_avatar.jpg' %}" alt="avatar">
+                        {% endif %}
+                    </div>                    
+                    <!-- Кнопка загрузки изображения -->
+                    <label class="file-upload">
+                        <input type="file" name="image" accept="image/*" onchange="previewImage(event)" >
+                        Выбрать изображение
+                    </label>
+
+                    <!-- Кнопка удаления изображения -->
+                    {% if user.image %}
+                        <button type="submit" name="delete_image" value="1" class="btn_delete">Удалить изображение</button>
+                    {% endif %}
+                    
+                    <p class="name">{{ user.username }}</p>
+                    <p class="email">{{ user.email }}</p>
+                </div>
+            </div>
+
+            <div class="right_profile">
+                <div>
+                    <!-- Логин -->
+                    <p>Логин</p>
+                    <input type="text" name="username" value="{{ form.username.value }}" placeholder="Логин" required>
+                    {% if form.username.errors %}
+                        <div class="alert alert-danger">{{ form.username.errors.0 }}</div>
+                    {% endif %}
+
+                    <!-- Имя -->
+                    <p>Имя</p>
+                    <input type="text" name="first_name" value="{{ form.first_name.value }}" placeholder="Имя" required>
+                    {% if form.first_name.errors %}
+                        <div class="alert alert-danger">{{ form.first_name.errors.0 }}</div>
+                    {% endif %}
+
+                    <!-- Фамилия -->
+                    <p>Фамилия</p>
+                    <input type="text" name="last_name" value="{{ form.last_name.value }}" placeholder="Фамилия" required>
+                    {% if form.last_name.errors %}
+                        <div class="alert alert-danger">{{ form.last_name.errors.0 }}</div>
+                    {% endif %}
+
+                    <!-- Email -->
+                    <p>Email</p>
+                    <input type="email" name="email" value="{{ form.email.value }}" placeholder="Email" required>
+                    {% if form.email.errors %}
+                        <div class="alert alert-danger">{{ form.email.errors.0 }}</div>
+                    {% endif %}
+
+                    <!-- Кнопка сохранения -->
+                    <button type="submit" class="btn_save">Сохранить</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- JavaScript для предварительного просмотра изображения -->
+<script>
+    function previewImage(event) {
+        const reader = new FileReader();
+        reader.onload = function () {
+            const output = document.getElementById('previewImage');
+            output.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>
+{% endblock %}

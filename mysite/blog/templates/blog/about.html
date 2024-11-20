@@ -1,0 +1,213 @@
+{% extends "blog/base.html" %}
+
+{% block title %}О нас{% endblock %}
+
+
+{% block content %}
+<div class="about_1">
+    {% if messages %}
+    <div id="messageModal" class="modal_message">
+        <div class="modal_message_content">
+            <span id="closeMessageModal" class="close_message">&times;</span>
+            {% for message in messages %}
+            <div class="message {{ message.tags }}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    <div>
+        <div class="block_content_info">
+            <p class="title_about">БІЗ<br>ТУРАЛЫ</p>
+            <p class="text_about">
+                Cakata Innovation - бұл озық технологияларды қолдана отырып, құқықтық көмек көрсетуге бағытталған жоба.
+                Біз
+                білім мен заң қызметтеріне қол жеткізу жылдам, ыңғайлы және барлығына қолжетімді болуы керек деп
+                санаймыз.
+                Нейрондық желілердің мүмкіндіктерін пайдалана отырып, біз пайдаланушылар кез келген уақытта және кез
+                келген
+                жерде қажетті жауаптарды таба алатындай заңды сұрақтармен өзара әрекеттесуді жеңілдетуге тырысамыз.
+                Біздің міндетіміз – қоғамның өзекті мәселелерін шешу үшін жасанды интеллект пен кәсіби тәжірибені
+                біріктіру.
+                Біз құқықтық қолдау үшін қауіпсіз және тиімді цифрлық кеңістікті құру үшін технологиямызды үнемі
+                жетілдіріп
+                отырамыз.
+            </p>
+        </div>
+    </div>
+
+    <div class="block_content_buttons">
+        <div class="block_content_buttons_info">
+            <div id="modal" class="modal">
+                <div class="modal-content">
+                    <span id="closeModalBtn" class="close">&times;</span>
+                    <div>
+                        <form action="{% url 'blog:send_review' %}" method="post">
+                            {% csrf_token %}
+                            <div>
+                                <label class="text_input" for="name">Имя:</label><br>
+                                <input class="name_form" type="text" id="name" name="name" placeholder="Введите ваше имя" required>
+                            </div>
+                            <br><br>
+                            <div>
+                                <label class="text_input" for="number">Номер телефона:</label><br>
+                                <input class="number_form" type="text" id="phoneInput" name="number" placeholder="+7 (___) ___-__-__" maxlength="18" required>
+                            </div>
+                            <br><br>
+                            <div>
+                                <label class="text_input" for="email">Email:</label><br>
+                                <input class="email_form" type="email" id="email" name="email" placeholder="Введите ваш email"
+                                    required>
+                            </div>
+                            <br><br>
+                            <div>
+                                <label class="text_input" for="message">Сообщение:</label><br>
+                                <textarea class="message_form" id="message" name="message" placeholder="Введите ваше сообщение"
+                                    rows="4" cols="50" required></textarea>
+                            </div>
+                            <br><br>
+                            <button class="button_form" type="submit">Отправить</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <button id="openModalBtn" class="about_button">Бізге жазу</button>
+            <p class="contact_text">Байланыс мәліметтері</p>
+            <div class="social_networks">
+                <a href="https://www.instagram.com/saken_tn_/profilecard/?igsh=M3EzazMxY2x5NHF2" class="icon_instagram"
+                    aria-label="Instagram"></a>
+                <a href="#" class="icon_whatsapp" aria-label="WhatsApp"></a>
+                <a href="#" class="icon_telegram" aria-label="Telegram"></a>
+            </div>
+        </div>
+        <div class="logo_360"><img class="logologo" src="/static/css/imges/logologo.svg" alt="" srcset=""></div>
+    </div>
+</div>
+<div class="about_2">
+    <div class="content_about_2">
+        <div class="left">
+            <div>
+                <div class="profile-picture"></div>
+                <div class="profile-info">
+                    <p class="name">Ербол Атажан</p>
+                    <p class="age">19 жас</p>
+                    <p class="field">Data Science</p>
+                </div>
+            </div>
+        </div>
+        <div class="right">
+            <div>
+                <p class="quote">"Нейрондық желі алгоритмдері-бұл деректерді білімге, ал білімді шешімге айналдыру
+                    тәсілі."</p>
+                <p class="author">Ян Лекун</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="content_about_2">
+        <div class="left">
+            <div>
+                <div class="profile-picture"></div>
+                <div class="profile-info">
+                    <p class="name">Набу Сакен</p>
+                    <p class="age">19 жас</p>
+                    <p class="field">Neural Network</p>
+                </div>
+            </div>
+        </div>
+        <div class="right">
+            <div>
+                <p class="quote">"Болашақ бүгінде әлемді жақсартуға қабілетті Алгоритмдер жасайтындарға тиесілі."</p>
+                <p class="author">Сатя Наделла</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- модaльное окно -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const modal = document.getElementById("modal");
+        const openModalBtn = document.getElementById("openModalBtn");
+        const closeModalBtn = document.getElementById("closeModalBtn");
+
+        // Открытие модального окна
+        openModalBtn.onclick = function () {
+            modal.style.display = "block";
+        }
+
+        // Закрытие модального окна по клику на крестик
+        closeModalBtn.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        // Закрытие модального окна по клику вне его
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    });
+</script>
+<!-- маска номера -->
+<script>
+    document.getElementById('phoneInput').addEventListener('input', function (e) {
+        let value = e.target.value.replace(/\D/g, ''); // Убираем все нецифровые символы
+        let formattedValue = '';
+
+        if (value.length > 0) {
+            formattedValue = '+7 (';
+            if (value.length >= 1) {
+                formattedValue += value.substring(1, 4);
+            }
+            if (value.length >= 4) {
+                formattedValue += ') ' + value.substring(4, 7);
+            }
+            if (value.length >= 7) {
+                formattedValue += '-' + value.substring(7, 9);
+            }
+            if (value.length >= 9) {
+                formattedValue += '-' + value.substring(9, 11);
+            }
+        }
+
+        // Обновление значения инпута без скачков курсора
+        const cursorPosition = e.target.selectionStart;
+        e.target.value = formattedValue;
+        e.target.setSelectionRange(cursorPosition, cursorPosition);
+    });
+
+    // Обработка клавиши Backspace и удаления символов
+    document.getElementById('phoneInput').addEventListener('keydown', function (e) {
+        if (e.key === 'Backspace') {
+            let cursorPosition = e.target.selectionStart;
+            if (cursorPosition > 0 && (e.target.value[cursorPosition - 1] === ' ' || e.target.value[cursorPosition - 1] === '-' || e.target.value[cursorPosition - 1] === ')' || e.target.value[cursorPosition - 1] === '(')) {
+                e.preventDefault();
+                e.target.setSelectionRange(cursorPosition - 1, cursorPosition - 1);
+            }
+        }
+    });
+</script>
+
+<script>
+    // Получаем элементы модального окна и кнопки закрытия
+    var modal = document.getElementById("messageModal");
+    var closeBtn = document.getElementById("closeMessageModal");
+
+    // Когда пользователь нажимает на кнопку закрытия, скрываем модальное окно
+    closeBtn.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    // Когда пользователь кликает вне модального окна, также скрываем его
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+
+{% endblock %}

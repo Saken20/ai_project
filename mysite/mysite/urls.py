@@ -16,18 +16,23 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.urls import path, include
 from django.urls import path
-from blog import views
-from django.urls import reverse
+from django.conf import settings
+from django.conf.urls.static import static
+from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
 
 
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
-    path('', views.home, name='home'),
-    path('about/', views.about, name='about'),
+    path('', include('blog.urls', namespace='blog')),
+    path('chat/', include('ai_app.urls', namespace='ai_app')),
+    path('ajax/', include('ai_app.urls')),
+    path('accounts/', include('accounts.urls', namespace='accounts')),
     
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
-url = reverse('home')
+if settings.DEBUG:  # Чтобы медиафайлы работали только в режиме разработки
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

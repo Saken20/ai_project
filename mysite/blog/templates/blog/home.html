@@ -1,0 +1,51 @@
+{% extends "blog/base.html" %}
+
+{% block title %}
+Главная страница
+{% endblock %}
+{% block restarting %}<button class="restart-btn" id="restart-btn" onclick="restart(event)"><img class="restart_img" src=" static\css\imges\Renew.svg" alt=""></button>{% endblock %}
+{% block content %}
+
+<div class="content_info">
+
+    {% if messages %}
+    <div id="messageModal" class="modal_message">
+        <div class="modal_message_content">
+            <span id="closeMessageModal" class="close_message">&times;</span>
+            {% for message in messages %}
+            <div class="message {{ message.tags }}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="block_content">
+    
+    </div>
+    
+    <div class="input_serch">
+        <input type="text" class="search" id="search" placeholder="Іздеу...">
+        <button class="btn_search" id="btn_search"><img class="img_search" src="static\css\imges\icon _Search.svg" alt=""></button>
+    </div>
+</div>
+
+<script>
+    // Получаем элементы модального окна и кнопки закрытия
+    var modal = document.getElementById("messageModal");
+    var closeBtn = document.getElementById("closeMessageModal");
+
+    // Когда пользователь нажимает на кнопку закрытия, скрываем модальное окно
+    closeBtn.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    // Когда пользователь кликает вне модального окна, также скрываем его
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+{% endblock %}
