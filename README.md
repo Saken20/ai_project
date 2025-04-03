@@ -28,5 +28,5 @@
 1. **Клонируйте репозиторий:**
 
    ```bash
-   git clone https://github.com/your_username/your_chatbot_project.git
-   cd your_chatbot_project
+   git clone https://github.com/Saken20/ai_project.git
+   cd ai_project
